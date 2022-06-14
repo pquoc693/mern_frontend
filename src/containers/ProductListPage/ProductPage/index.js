@@ -12,11 +12,16 @@ const ProductPage = (props) => {
   const product = useSelector(state => state.product);
   const { page } = product;
 
+  console.log('page', page)
+
   useEffect(() => {
-    const params = getParams(props.location.search);
-    console.log({ params });
+    // const params = getParams(props.location.search);
+    // console.log({ props });
     const payload = {
-      params
+      params: {
+        cid: props.cid,
+        type: props.type
+      }
     }
     dispatch(getProductPage(payload));
   }, []);
