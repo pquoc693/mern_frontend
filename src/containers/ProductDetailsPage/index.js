@@ -10,6 +10,7 @@ import {
 import {
   useParams,
   useSearchParams,
+  useNavigate
 } from "react-router-dom";
 
 import { BiRupee } from 'react-icons/bi';
@@ -17,10 +18,12 @@ import { AiFillThunderbolt } from 'react-icons/ai';
 import { MaterialButton } from '../../components/MaterialUI';
 import './style.css';
 import { generatePublicUrl } from '../../urlConfig';
+import { addToCart } from '../../actions';
 
 const ProductDetailsPage = (props) => {
 
   const dispatch = useDispatch();
+  const history = useNavigate();
   const product = useSelector(state => state.product);
 
   const params = useParams();
@@ -55,7 +58,7 @@ const ProductDetailsPage = (props) => {
           <div className="verticalImageStack">
             {
               product.productDetails.productPictures.map((thumb, index) =>
-                <div className="thumbnail">
+                <div className="thumbnail" key={index}>
                   {thumb && thumb.img ?
                     <img src={generatePublicUrl(thumb.img)} alt={thumb.img} />
                     : null}
@@ -86,6 +89,13 @@ const ProductDetailsPage = (props) => {
                   marginRight: '5px'
                 }}
                 icon={<IoMdCart />}
+                onClick={() => {
+                  const { _id, name, price } = product.productDetails;
+                  const img = product.productDetails.productPictures[0].img;
+                  dispatch(addToCart({ _id, name, price, img }));
+                  // props.history.push(`/cart`);
+                  history('/cart')
+                }}
               />
               <MaterialButton
                 title="BUY NOW"

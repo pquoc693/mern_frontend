@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProductsBySlug } from '../../../actions';
 import { generatePublicUrl } from '../../../urlConfig';
 import { Link } from 'react-router-dom';
+import Card from '../../../components/UI/Card';
 
 const ProductStore = (props) => {
 
@@ -27,11 +28,14 @@ const ProductStore = (props) => {
       {
         Object.keys(product.productsByPrice).map((key, index) => {
           return (
-            <div className="card" key={index}>
-              <div className="cardHeader">
-                <div>{props.slug} mobile under {priceRange[key]}</div>
-                <button>view all</button>
-              </div>
+            <Card
+              headerLeft={`${props.slug} mobile under ${priceRange[key]}`}
+              headerRight={<button>view all</button>}
+              style={{
+                width: 'calc(100% - 40px)',
+                margin: '20px'
+              }}
+            >
               <div style={{ display: 'flex' }}>
                 {
                   product.productsByPrice[key].map((product, index) =>
@@ -42,7 +46,7 @@ const ProductStore = (props) => {
                         display: 'block'
                       }} className="productContainer">
                       <div className="productImgContainer">
-                        {product && product.productPicture && product.productPicture.length ?
+                        {product.productPictures[0]?.img ?
                           <img src={generatePublicUrl(product.productPictures[0].img)} alt="" />
                           : null}
                       </div>
@@ -58,7 +62,7 @@ const ProductStore = (props) => {
                   )
                 }
               </div>
-            </div>
+            </Card>
           );
         })
       }
