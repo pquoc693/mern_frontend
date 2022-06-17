@@ -12,6 +12,7 @@ import HomePage from './containers/HomePage';
 import ProductListPage from './containers/ProductListPage';
 import ProductDetailsPage from './containers/ProductDetailsPage';
 import CartPage from './containers/CartPage';
+import CheckoutPage from './containers/CheckoutPage';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/:productSlug/:productId/p" element={<ProductDetailsPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/:slug" element={<ProductListPage />} />
       </Routes>
     </div>

@@ -9,12 +9,12 @@ const Card = (props) => {
     >
       {/* {props.children} */}
       <div className="cardHeader">
-        {
-          props.headerLeft && <div>{props.headerLeft}</div>
-        }
-        {
-          props.headerRight && props.headerRight
-        }
+        {(props.headerLeft || props.headerRight) && (
+          <div className="cardHeader">
+            {props.headerLeft && <div>{props.headerLeft}</div>}
+            {props.headerRight && props.headerRight}
+          </div>
+        )}
       </div>
       {props.children}
     </div>
